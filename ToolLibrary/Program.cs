@@ -32,6 +32,7 @@ namespace UsefulStuff
             {
                 ConsoleKey input;
                 Console.Clear();
+                MenuItems[1].Selected = true;
 
                 do
                 {

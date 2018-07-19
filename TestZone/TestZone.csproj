@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{50F1D904-95CC-4A00-912C-E4123FE6FFEA}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>ToolLibrary</RootNamespace>
-    <AssemblyName>ToolLibrary</AssemblyName>
+    <ProjectGuid>{A69D9DA3-9D4F-4846-A692-474A04EC4501}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TestZone</RootNamespace>
+    <AssemblyName>TestZone</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,9 +31,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
