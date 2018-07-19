@@ -30,9 +30,11 @@ namespace UsefulStuff
 
             public MenuItem DispVertMenu(int selected = 0)
             {
+                bool cursorVisible = Console.CursorVisible;
                 ConsoleKey input;
                 Console.Clear();
                 MenuItems[1].Selected = true;
+                Console.CursorVisible = false;
 
                 do
                 {
@@ -55,11 +57,15 @@ namespace UsefulStuff
                             NextSelect();
                             break;
                         case ConsoleKey.Enter:
+                            Console.CursorVisible = cursorVisible;
+                            Console.Clear();
                             return MenuItems[SelectedItem];
                     }
 
                 } while (input != ConsoleKey.Enter);
 
+                Console.CursorVisible = cursorVisible;
+                Console.Clear();
 
                 return MenuItems[SelectedItem];
             }
