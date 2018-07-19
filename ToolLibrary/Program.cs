@@ -33,7 +33,7 @@ namespace UsefulStuff
                 bool cursorVisible = Console.CursorVisible;
                 ConsoleKey input;
                 Console.Clear();
-                MenuItems[1].Selected = true;
+                MenuItems[0].Selected = true;
                 Console.CursorVisible = false;
 
                 do
