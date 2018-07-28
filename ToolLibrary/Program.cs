@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ToolLibrary;
 
 namespace UsefulStuff
 {
@@ -33,7 +34,8 @@ namespace UsefulStuff
                 bool cursorVisible = Console.CursorVisible;
                 ConsoleKey input;
                 Console.Clear();
-                MenuItems[0].Selected = true;
+                SelectedItem = selected;
+                MenuItems[selected].Selected = true;
                 Console.CursorVisible = false;
 
                 do
@@ -85,6 +87,74 @@ namespace UsefulStuff
                     MenuItems[SelectedItem].Selected = false;
                     MenuItems[--SelectedItem].Selected = true;
                 }
+            }
+
+            public MenuItem DispTableMenu(int col = 5, int selected = 0)
+            {
+                int cellSize = 0;
+                ConsoleKey input;
+                
+                bool initCursorVisible = Console.CursorVisible;
+                int initWidth = Console.WindowWidth;
+
+                Console.CursorVisible = false;
+
+                Console.Clear();
+
+                foreach (MenuItem item in MenuItems)
+                {
+                    if (item.DisplayName.Length > cellSize)
+                    {
+                        cellSize = item.DisplayName.Length + 2;
+                    }
+                }
+
+                do
+                {
+                    Console.SetCursorPosition(0, 0);
+
+                    Console.WindowWidth = (cellSize * col) + col + 1;
+                    Console.BufferWidth = (cellSize * col) + col + 1;
+                    Console.WindowHeight = (MenuItems.Count * 2 + 1) / col;
+                    Console.BufferHeight = Console.WindowHeight;
+
+                    int i = 0;
+
+                    while (i < MenuItems.Count)
+                    {
+                        Misc.PrtDashLine(Console.WindowWidth);
+                        Console.WriteLine();
+                        
+                            
+                    }
+
+                    input = Console.ReadKey().Key;
+
+                    switch (input)
+                    {
+                        case ConsoleKey.LeftArrow:
+                            BackSelect();
+                            break;
+                        case ConsoleKey.RightArrow:
+                            NextSelect();
+                            break;
+                        case ConsoleKey.UpArrow:
+
+                            break;
+                        case ConsoleKey.DownArrow:
+
+                            break;
+                        case ConsoleKey.Enter:
+                            Console.CursorVisible = initCursorVisible;
+                            Console.Clear();
+                            return MenuItems[SelectedItem];
+                    }
+                } while (input != ConsoleKey.Enter);
+
+                Console.CursorVisible = initCursorVisible;
+                Console.Clear();
+
+                return MenuItems[SelectedItem];
             }
         }
 

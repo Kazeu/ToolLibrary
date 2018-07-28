@@ -27,7 +27,7 @@ namespace TestUsefulStuff
                 menu.MenuItems.Add(menuItem);
             }
 
-            menu.DispVertMenu();
+            menu.DispTableMenu();
         }
     }
 }
