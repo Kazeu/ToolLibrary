@@ -15,11 +15,11 @@ namespace TestUsefulStuff
 
             menu.MenuItems = new List<MenuItem>();
 
-            for (int i = 0; i < 5; ++i)
+            for (int i = 0; i < 12; ++i)
             {
                 menuItem = new MenuItem();
                 menuItem.Selected = false;
-                menuItem.DisplayName = "Item" + (i + 1);
+                menuItem.DisplayName = "File Directory" + (i + 1);
                 menuItem.ID = i;
                 menuItem.strVal = null;
                 menuItem.numVal = random.Next(1, 11);
@@ -27,7 +27,7 @@ namespace TestUsefulStuff
                 menu.MenuItems.Add(menuItem);
             }
 
-            menu.DispTableMenu();
+            menu.DispTableMenu(4);
         }
     }
 }

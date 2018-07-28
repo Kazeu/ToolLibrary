@@ -96,7 +96,8 @@ namespace UsefulStuff
                 
                 bool initCursorVisible = Console.CursorVisible;
                 int initWidth = Console.WindowWidth;
-
+                SelectedItem = selected;
+                MenuItems[selected].Selected = true;
                 Console.CursorVisible = false;
 
                 Console.Clear();
@@ -105,28 +106,58 @@ namespace UsefulStuff
                 {
                     if (item.DisplayName.Length > cellSize)
                     {
-                        cellSize = item.DisplayName.Length + 2;
+                        cellSize = item.DisplayName.Length;
                     }
                 }
 
+                cellSize += 2;
+
+                Console.WindowWidth = (cellSize * col) + col + 5;
+                Console.BufferWidth = (cellSize * col) + col + 5;
+                Console.WindowHeight = Convert.ToInt32(Math.Ceiling(d: MenuItems.Count / col * 2 + 4));
+                Console.BufferHeight = Console.WindowHeight;
+                
                 do
                 {
                     Console.SetCursorPosition(0, 0);
 
-                    Console.WindowWidth = (cellSize * col) + col + 1;
-                    Console.BufferWidth = (cellSize * col) + col + 1;
-                    Console.WindowHeight = (MenuItems.Count * 2 + 1) / col;
-                    Console.BufferHeight = Console.WindowHeight;
-
                     int i = 0;
+                    int j = 0;
 
                     while (i < MenuItems.Count)
                     {
-                        Misc.PrtDashLine(Console.WindowWidth);
-                        Console.WriteLine();
-                        
-                            
+                        Misc.PrtDashLine(Console.WindowWidth - 1);
+
+                        do
+                        {
+                            Console.Write("|");
+
+                            for (int k = 0; k <= (cellSize - MenuItems[j].DisplayName.Length) / 2; ++k)
+                            {
+                                Console.Write(" ");
+                            }
+
+                            if (MenuItems[j].Selected)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Blue;
+                                Console.BackgroundColor = ConsoleColor.White;
+                            }
+                            Console.Write("{0}", MenuItems[j].DisplayName);
+                            Console.ResetColor();
+                            for (int k = 0; k <= (cellSize - MenuItems[j].DisplayName.Length) / 2; ++k)
+                            {
+                                Console.Write(" ");
+                            }
+                            ++i;
+                            ++j;
+                        } while ((j % col) != 0 && j < MenuItems.Count);
+
+                        Console.Write("|");
+                        //Console.WriteLine();
                     }
+
+                    Console.WriteLine();
+                    Misc.PrtDashLine(Console.WindowWidth - 1);
 
                     input = Console.ReadKey().Key;
 
@@ -139,10 +170,16 @@ namespace UsefulStuff
                             NextSelect();
                             break;
                         case ConsoleKey.UpArrow:
-
+                            if (SelectedItem >= col)
+                            {
+                                SelectedItem -= col;
+                            }
                             break;
                         case ConsoleKey.DownArrow:
-
+                            if (SelectedItem + col < MenuItems.Count)
+                            {
+                                SelectedItem += col;
+                            }
                             break;
                         case ConsoleKey.Enter:
                             Console.CursorVisible = initCursorVisible;
