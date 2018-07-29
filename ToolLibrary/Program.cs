@@ -93,6 +93,8 @@ namespace UsefulStuff
             { 
                 ConsoleKey input;
                 int cellSize = 0;
+                int rows = 0;
+                int j = 0;
 
                 bool initCursorVisible = Console.CursorVisible;
                 int initWidth = Console.WindowWidth;
@@ -101,7 +103,7 @@ namespace UsefulStuff
                 Console.CursorVisible = false;
 
                 Console.Clear();
-
+                
                 foreach (MenuItem item in MenuItems)
                 {
                     if (item.DisplayName.Length > cellSize)
@@ -110,14 +112,65 @@ namespace UsefulStuff
                     }
                 }
 
+                cellSize += 2 + 2; //Considering spaces on either side. Cell size is the space between "|"s
+
+                Console.WindowWidth = col * (cellSize + 1) + 1;
+                Console.BufferWidth = Console.WindowWidth;
+
+                double count = MenuItems.Count;
+
+                rows = Convert.ToInt32(Math.Ceiling(count / col));
+
                 do
                 {
-                    for (int i = 0; i < Math.Ceiling(d: MenuItems.Count / col); ++i)
-                    {
+                    j = 0;
 
+                    Console.SetCursorPosition(0, 0);
+
+                    for (int row = 0; row < rows; ++row)
+                    {
+                        Misc.PrtDashLine(Console.WindowWidth - 1);
+
+                        do
+                        {
+                            if (j < MenuItems.Count)
+                            {
+                                Console.Write("|");
+
+                                for (int cellPos = 1; cellPos <= cellSize; ++cellPos)
+                                {
+                                    if (cellPos - 3 >= 0 && cellPos - 2 <= MenuItems[j].DisplayName.Length)
+                                    {
+                                        if (MenuItems[j].Selected)
+                                        {
+                                            Misc.SlctClr();
+                                        }
+
+                                        Console.Write(MenuItems[j].DisplayName[cellPos - 3]);
+
+                                        Console.ResetColor();
+                                    }
+                                    else
+                                    {
+                                        Console.Write(" ");
+                                    }
+                                }
+
+                                ++j;
+                            }
+                        } while (j % col != 0 && j < MenuItems.Count);
+
+                        Console.Write("|");
                     }
 
-                    input = Console.ReadKey().Key;
+                    if (count % col != 0)
+                    {
+                        Console.WriteLine();
+                    }
+
+                    Misc.PrtDashLine(Console.WindowWidth - 1);
+
+                    input = Console.ReadKey(true).Key;
 
                     switch (input)
                     {

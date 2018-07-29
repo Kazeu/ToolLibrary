@@ -12,5 +12,11 @@ namespace ToolLibrary
                 Console.Write("-");
             }
         }
+
+        public static void SlctClr()
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.BackgroundColor = ConsoleColor.White;
+        }
     }
 }
