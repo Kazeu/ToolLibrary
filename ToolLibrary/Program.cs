@@ -90,10 +90,10 @@ namespace UsefulStuff
             }
 
             public MenuItem DispTableMenu(int col = 5, int selected = 0)
-            {
-                int cellSize = 0;
+            { 
                 ConsoleKey input;
-                
+                int cellSize = 0;
+
                 bool initCursorVisible = Console.CursorVisible;
                 int initWidth = Console.WindowWidth;
                 SelectedItem = selected;
@@ -110,54 +110,12 @@ namespace UsefulStuff
                     }
                 }
 
-                cellSize += 2;
-
-                Console.WindowWidth = (cellSize * col) + col + 5;
-                Console.BufferWidth = (cellSize * col) + col + 5;
-                Console.WindowHeight = Convert.ToInt32(Math.Ceiling(d: MenuItems.Count / col * 2 + 4));
-                Console.BufferHeight = Console.WindowHeight;
-                
                 do
                 {
-                    Console.SetCursorPosition(0, 0);
-
-                    int i = 0;
-                    int j = 0;
-
-                    while (i < MenuItems.Count)
+                    for (int i = 0; i < Math.Ceiling(d: MenuItems.Count / col); ++i)
                     {
-                        Misc.PrtDashLine(Console.WindowWidth - 1);
 
-                        do
-                        {
-                            Console.Write("|");
-
-                            for (int k = 0; k <= (cellSize - MenuItems[j].DisplayName.Length) / 2; ++k)
-                            {
-                                Console.Write(" ");
-                            }
-
-                            if (MenuItems[j].Selected)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Blue;
-                                Console.BackgroundColor = ConsoleColor.White;
-                            }
-                            Console.Write("{0}", MenuItems[j].DisplayName);
-                            Console.ResetColor();
-                            for (int k = 0; k <= (cellSize - MenuItems[j].DisplayName.Length) / 2; ++k)
-                            {
-                                Console.Write(" ");
-                            }
-                            ++i;
-                            ++j;
-                        } while ((j % col) != 0 && j < MenuItems.Count);
-
-                        Console.Write("|");
-                        //Console.WriteLine();
                     }
-
-                    Console.WriteLine();
-                    Misc.PrtDashLine(Console.WindowWidth - 1);
 
                     input = Console.ReadKey().Key;
 
